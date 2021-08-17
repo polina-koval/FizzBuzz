@@ -10,14 +10,6 @@ class TestStringMethods(unittest.TestCase):
         test_string = FizzBuzzDetector("pythondeveloper")
         self.assertEqual(test_string.string, "pythondeveloper")
 
-    def test_FizzBuzzDetector_list(self):
-        """Checking the "stolist" method"""
-        test_string = FizzBuzzDetector("pythondeveloper")
-        self.assertEqual(
-            test_string.stolist,
-            ["p", "y", "t", "h", "o", "n", "d", "e", "v", "e", "l", "o", "p", "e", "r"],
-        )
-
     def test_getOverlappings(self):
         """Checking the "getOverlappings" method"""
         test_string = FizzBuzzDetector("pythondeveloper")
@@ -25,8 +17,40 @@ class TestStringMethods(unittest.TestCase):
 
     def test_replaceFizzBuzz(self):
         """Checking the 'replaceFizzBuzz' method"""
-        test_string = FizzBuzzDetector("python")
-        self.assertEqual(test_string.replaceFizzBuzz(), "pyFizzhBuzzFizz")
+        test_string = FizzBuzzDetector("pythonic")
+        self.assertEqual(test_string.replaceFizzBuzz(), "pyFizzhBuzzFizzic")
+
+    def test_check_isalpha(self):
+        """Checking for occurrence of mismatched symbols in a string"""
+        with self.assertRaises(SyntaxError) as context:
+            test_string = FizzBuzzDetector("pytho5nic")
+            test_string.replaceFizzBuzz()
+
+        self.assertTrue(
+            "String should contain only letters of the english alphabet"
+            in str(context.exception)
+        )
+
+    def test_check_islower(self):
+        """Checking the case of a string"""
+        with self.assertRaises(SyntaxError) as context:
+            test_string = FizzBuzzDetector("Pythonic")
+            test_string.replaceFizzBuzz()
+
+        self.assertTrue(
+            "String should contain only lowercase letters" in str(context.exception)
+        )
+
+    def test_check_length(self):
+        """Checking the length of a string"""
+        with self.assertRaises(SyntaxError) as context:
+            test_string = FizzBuzzDetector("P")
+            test_string.replaceFizzBuzz()
+
+        self.assertTrue(
+            "The string length must be between 7 and 100 characters inclusive"
+            in str(context.exception)
+        )
 
 
 if __name__ == "__name__":
